@@ -1,11 +1,33 @@
 from enum import Enum
+
+class Color(Enum):
+    WHITE = 1
+    BLACK = 2
+
 class Board:
-    def init(self):
+    def __init__(self):
         self.__field = []
         self.__color = Color.WHITE
         for _ in range(8):
             self.__field.append([None] * 8)
-        self.__field[3][5] = 'wP'
+        self.__field[1][4] = 'bP'  # Black pawn
+        self.__field[6][4] = 'wP'  # White pawn
+        self.__field[0][0] = 'bR'  # Black rook
+        self.__field[0][7] = 'bR'  # Black rook
+        self.__field[0][1] = 'bN'  # Black knight
+        self.__field[0][6] = 'bN'  # Black knight
+        self.__field[0][2] = 'bB'  # Black bishop
+        self.__field[0][5] = 'bB'  # Black bishop
+        self.__field[0][3] = 'bQ'  # Black queen
+        self.__field[0][4] = 'bK'  # Black king
+        self.__field[7][0] = 'wR'  # White rook
+        self.__field[7][7] = 'wR'  # White rook
+        self.__field[7][1] = 'wN'  # White knight
+        self.__field[7][6] = 'wN'  # White knight
+        self.__field[7][2] = 'wB'  # White bishop
+        self.__field[7][5] = 'wB'  # White bishop
+        self.__field[7][3] = 'wQ'  # White queen
+        self.__field[7][4] = 'wK'  # White king
 
     def current_player(self):
         return self.__color
@@ -13,21 +35,22 @@ class Board:
     def field(self):
         return tuple([tuple(row) for row in self.__field])
 
-    def get_piece(self,row: int, col: int):
-        if 1 <= row <= 9 and 1 <= col <= 9:
-            return this.field[row - 1][col - 1]
+    def get_piece(self, row: int, col: int):
+        if 1 <= row <= 8 and 1 <= col <= 8:
+            return self.__field[row - 1][col - 1]
 
-def convert_step(step,str) -> tuple | Exception:
+def convert_step(step: str) -> tuple:
     if len(step) != 2:
         raise Exception('Неверный формат шага')
-    s, n = step[0],step[1]
+    s, n = step[0], step[1]
     if ord(s) < ord('A') or ord(s) > ord('H'):
         raise Exception('Допустимые символы: A-H')
-    if ord(n) < ord('1') or ord(n) > ord(8):
+    if ord(n) < ord('1') or ord(n) > ord('8'):
         raise Exception('Допустимые цифры: 1-8')
     return int(n), ord(s) - 64
-def print_board():
-    print('    +' + '----+' *8)
+
+def print_board(board):
+    print('    +' + '----+' * 8)
     for y in range(8, 0, -1):
         print(f' {y}  |', end='')
         for x in range(1, 9):
@@ -37,8 +60,8 @@ def print_board():
                 print('  ', end='')
             else:
                 print(piece, end='')
-            print('  |', end='')
-        print('    |' *8 )
+            print(' |', end='')
+        print(' ')
         print('    +' + '----+' * 8)
     print(' ' * 5, end='')
     for x in range(8):
@@ -47,10 +70,10 @@ def print_board():
 def main():
     board = Board()
     while True:
-        print_board()
+        print_board(board)
         print('Команды:')
         print('    exit        --выход')
-        print('    move <from> <to>    --ход из клетки    клетки <from> в клетку <to>')
+        print('    move <from> <to>    --ход из клетки <from> в клетку <to>')
 
         command = input('Введите команду: ')
         if command == 'exit':
@@ -60,10 +83,11 @@ def main():
             try:
                 start = convert_step(command[1])
                 end = convert_step(command[2])
-                print(start,end)
+                print(start, end)
             except Exception as e:
                 print('Ошибка:', e)
             finally:
                 continue
         print('Неверная команда!')
+
 main()
