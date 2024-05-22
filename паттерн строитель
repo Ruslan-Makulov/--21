@@ -1,0 +1,100 @@
+class Engine:
+    def __init__(self, fuel_type, horsepower):
+        self.fuel_type = fuel_type
+        self.horsepower = horsepower
+
+    def __str__(self):
+        return f"{self.horsepower} л.с. ({self.fuel_type})"
+
+
+class Transmission:
+
+    def __init__(self, transmission_type, gears):
+        self.transmission_type = transmission_type
+        self.gears = gears
+
+    def __str__(self):
+        return f"{self.transmission_type} ({self.gears}-ступенчатая)"
+
+
+class Body:
+
+    def __init__(self, color, body_type):
+        self.color = color
+        self.body_type = body_type
+
+    def __str__(self):
+        return f"{self.color} {self.body_type}"
+
+
+class Car:
+
+    def __init__(self):
+        self.engine = None
+        self.transmission = None
+        self.body = None
+
+    def __str__(self):
+        return (
+            f"Автомобиль:\n"
+            f"  Двигатель: {self.engine}\n"
+            f"  Трансмиссия: {self.transmission}\n"
+            f"  Кузов: {self.body}"
+        )
+
+
+class CarBuilder:
+
+    def reset(self):
+        raise NotImplementedError()
+
+    def set_engine(self, engine):
+        raise NotImplementedError()
+
+    def set_transmission(self, transmission):
+        raise NotImplementedError()
+
+    def set_body(self, body):
+        raise NotImplementedError()
+
+    def get_car(self):
+        raise NotImplementedError()
+
+
+class SedanBuilder(CarBuilder):
+
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        self._car = Car()
+
+    def set_engine(self, engine):
+        self._car.engine = engine
+
+    def set_transmission(self, transmission):
+        self._car.transmission = transmission
+
+    def set_body(self, body):
+        self._car.body = body
+
+    def get_car(self):
+        return self._car
+
+
+class CarDirector:
+
+    def __init__(self, builder):
+        self._builder = builder
+
+    def construct_car(self):
+        self._builder.reset()
+        self._builder.set_engine(Engine("Бензин", 150))
+        self._builder.set_transmission(Transmission("Автомат", 6))
+        self._builder.set_body(Body("Серебристый", "Седан"))
+        return self._builder.get_car()
+
+sedan_builder = SedanBuilder()
+director = CarDirector(sedan_builder)
+sedan = director.construct_car()
+print("Создан седан:", sedan)
