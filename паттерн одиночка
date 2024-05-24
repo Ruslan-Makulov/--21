@@ -1,0 +1,27 @@
+class GameSettings:
+    __instance = None
+
+    def __init__(self):
+        if GameSettings.__instance is not None:
+            raise Exception("Этот класс уже инициализирован!")
+        self.volume = 50
+        self.difficulty = "Easy"
+        GameSettings.__instance = self
+
+    @staticmethod
+    def get_instance():
+        if GameSettings.__instance is None:
+            GameSettings()
+        return GameSettings.__instance
+
+# Пример использования
+settings1 = GameSettings.get_instance()
+settings2 = GameSettings.get_instance()
+
+print(settings1 is settings2)  # Выведет True
+
+settings1.volume = 70
+settings1.difficulty = "Hard"
+
+print(settings2.volume)  # Выведет 70
+print(settings2.difficulty)  # Выведет "Hard"
