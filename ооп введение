@@ -1,0 +1,170 @@
+# Задача 1
+class LittleBell:
+    def sound(self):
+      print("ding")
+# Ваш код
+
+bell = LittleBell()
+bell.sound()
+#Задача 2
+class Button:
+    def __init__(self):
+        self.clicks = 0
+
+    def click(self):
+        self.clicks += 1
+
+    def click_count(self):
+        return self.clicks
+
+    def reset(self):
+        self.clicks = 0
+
+# Ваш код
+
+button = Button()
+button.click()
+button.click()
+print(button.click_count())
+button.reset()
+button.click()
+print(button.click_count())
+# Задача 3
+class Balance:
+    def __init__(self):
+        self.left_weight = 0
+        self.right_weight = 0
+
+    def add_left(self, weight):
+        self.left_weight += weight
+
+    def add_right(self, weight):
+        self.right_weight += weight
+
+    def result(self):
+        if self.left_weight == self.right_weight:
+            return '='
+        elif self.left_weight > self.right_weight:
+            return 'L'
+        else:
+            return 'R'
+
+balance = Balance()
+balance.add_right(10)
+balance.add_left(5)
+balance.add_left(5)
+print(balance.result())
+balance.add_left(1)
+print(balance.result())
+#Задача 4
+class OddEvenSeparator:
+    def __init__(self):
+        self.even_numbers = []
+        self.odd_numbers = []
+
+    def add_number(self, number):
+        if number % 2 == 0:
+            self.even_numbers.append(number)
+        else:
+            self.odd_numbers.append(number)
+
+    def even(self):
+        return self.even_numbers
+
+    def odd(self):
+        return self.odd_numbers
+
+separator = OddEvenSeparator()
+separator.add_number(1)
+separator.add_number(5)
+separator.add_number(6)
+separator.add_number(8)
+separator.add_number(3)
+print(' '.join(map(str, separator.even())))
+print(' '.join(map(str, separator.odd())))
+# Задача 5
+class BigBell:
+    def __init__(self):
+        self.ring = 'ding'
+
+    def sound(self):
+        print(self.ring)
+        if self.ring == 'ding':
+            self.ring = 'dong'
+        else:
+            self.ring = 'ding'
+
+# Ваш код
+
+bell = BigBell()
+bell.sound()
+bell.sound()
+bell.sound()
+#Задача 6 
+class MinMaxWordFinder:
+    def __init__(self):
+        self.shortest_words = []
+        self.longest_words = []
+        self.min_length = float('inf')
+        self.max_length = 0
+
+    def add_sentence(self, sentence):
+        words = sentence.split()
+        for word in words:
+            word_length = len(word)
+            if word_length < self.min_length:
+                self.shortest_words = [word]
+                self.min_length = word_length
+            elif word_length == self.min_length:
+                self.shortest_words.append(word)
+
+            if word_length > self.max_length:
+                self.longest_words = [word]
+                self.max_length = word_length
+            elif word_length == self.max_length and word not in self.longest_words:
+                self.longest_words.append(word)
+
+    def shortest_words(self):
+        return sorted(self.shortest_words)
+
+    def longest_words(self):
+        return sorted(self.longest_words)
+#Задача 7
+class BoundingRectangle:
+    def __init__(self):
+        self.left = float('inf')
+        self.right = float('-inf')
+        self.bottom = float('inf')
+        self.top = float('-inf')
+
+    def add_point(self, x, y):
+        self.left = min(self.left, x)
+        self.right = max(self.right, x)
+        self.bottom = min(self.bottom, y)
+        self.top = max(self.top, y)
+
+    def width(self):
+        return self.right - self.left
+
+    def height(self):
+        return self.top - self.bottom
+
+    def bottom_y(self):
+        return self.bottom
+
+    def top_y(self):
+        return self.top
+
+    def left_x(self):
+        return self.left
+
+    def right_x(self):
+        return self.right
+rect = BoundingRectangle()
+rect.add_point(-1, -2)
+rect.add_point(3, 4)
+print(rect.left_x(), rect.right_x())
+print(rect.bottom_y(), rect.top_y())
+print(rect.width(), rect.height())
+
+          
