@@ -1,0 +1,430 @@
+Задача1
+class BaseObject:
+ 
+    def __init__(self, x: int, y: int, z: int):
+        self.x, self.y, self.z = x, y, z
+        
+    def get_coordinates(self) -> (int, int, int):
+        return self.x, self.y, self.z
+ 
+ 
+class Block(BaseObject):
+    
+    def shatter(self):
+        self.x, self.y, self.z = None, None, None
+ 
+ 
+class Entity(BaseObject):
+ 
+    def move(self, x: int, y: int, z: int):
+        self.x, self.y, self.z = x, y, z
+ 
+ 
+class Thing(BaseObject):
+
+Задача2
+class Acellularia:
+    pass
+
+class Cellularia:
+    pass
+
+class Prokaryota(Cellularia):
+    pass
+
+class Eukaryota(Cellularia):
+    pass
+
+class Unicellularia(Eukaryota):
+    pass
+
+class Fungi(Eukaryota):
+    pass
+
+class Plantae(Eukaryota):
+    pass
+
+class Animalia(Eukaryota):
+    pass
+
+Задача3
+class User:
+    def solve(self, n):
+        pass
+
+class Student(User):
+    pass
+
+class Teacher(User):
+    def check_solution(self, user, n):
+        pass
+
+class Admin(User):
+    def edit(self, n):
+        pass
+
+class SuperAdmin(Admin):
+    def grant(self, user):
+        pass
+
+Задача4
+class User:
+    def __init__(self, name):
+        self.name = name
+
+    def send_message(self, user, message):
+        pass
+
+    def post(self, message):
+        pass
+
+    def info(self):
+        return ""
+
+    def describe(self):
+        print(f"{self.name} {self.info()}")
+
+class Person(User):
+    def __init__(self, name, birthday):
+        super().__init__(name)
+        self.birthday = birthday
+
+    def info(self):
+        return f"Дата рождения: {self.birthday}"
+
+    def subscribe(self, user):
+        pass
+
+class Community(User):
+    def __init__(self, name, description):
+        super().__init__(name)
+        self.description = description
+
+    def info(self):
+        return f"Описание: {self.description}"
+
+Задача5
+class Animal:
+    def breathe(self):
+        pass
+
+    def eat(self):
+        pass
+
+class Fish(Animal):
+    def swim(self):
+        pass
+
+class Bird(Animal):
+    def lay_eggs(self):
+        pass
+
+class FlyingBird(Bird):
+    def fly(self):
+        pass
+
+Задача6
+class Vehicle:
+    pass
+
+class WaterVehicle(Vehicle):
+    pass
+
+class AirVehicle(Vehicle):
+    pass
+
+class LandVehicle(Vehicle):
+    pass
+
+class SpaceVehicle(Vehicle):
+    pass
+
+class Ship(WaterVehicle):
+    pass
+
+class Boat(WaterVehicle):
+    pass
+
+class Airplane(AirVehicle):
+    pass
+
+class Dirigible(AirVehicle):
+    pass
+
+class Balloon(AirVehicle):
+    pass
+
+class Train(LandVehicle):
+    pass
+
+class Car(LandVehicle):
+    pass
+
+class Bicycle(LandVehicle):
+    pass
+
+class AnimalPoweredVehicle(LandVehicle):
+    pass
+
+class HorseCart(AnimalPoweredVehicle):
+    pass
+
+class Spacecraft(SpaceVehicle):
+    pass
+
+class Rocket(SpaceVehicle):
+    pass
+
+class Satellite(SpaceVehicle):
+    pass
+
+Задача7
+class Shape:
+    pass
+ 
+ 
+class Polygon(Shape):
+    pass
+ 
+ 
+class Triangle(Polygon):
+    pass
+ 
+ 
+class IsoscelesTriangle(Triangle):
+    pass
+ 
+ 
+class EquilateralTriangle(Triangle):
+    pass
+ 
+ 
+class Quadrilateral(Polygon):
+    pass
+ 
+ 
+class Parallelogram(Quadrilateral):
+    pass
+ 
+ 
+class Rectangle(Quadrilateral):
+    pass
+ 
+ 
+class Square(Rectangle):
+    pass
+Задача8
+class Summator:
+    def transform(self, n):
+        return n
+    def sum(self, N):
+        count = 0
+        for i in range(N + 1):
+            count += self.transform(int(i))
+        return count
+class SquareSummator(Summator):
+    def __init__(self):
+        pass
+    def transform(self, n):
+        return n ** 2
+class CubeSummator(Summator):
+    def __init__(self):
+        pass
+    def transform(self, n):
+        return n ** 3
+Задача9
+class Profile:
+    def __init__(self, profession):
+        self.profession = profession
+
+    def info(self):
+        return ""
+
+    def describe(self):
+        print(f"{self.profession} {self.info()}")
+
+class Vacancy(Profile):
+    def __init__(self, profession, salary):
+        super().__init__(profession)
+        self.salary = salary
+
+    def info(self):
+        return f"Предлагаемая зарплата: {self.salary}"
+
+class Resume(Profile):
+    def __init__(self, profession, experience):
+        super().__init__(profession)
+        self.experience = experience
+
+    def info(self):
+        return f"Стаж работы: {self.experience}"
+
+Задача10
+class Triangle:
+    def __init__(self, a, b, c):
+        self.a = a
+        self.b = b
+        self.c = c
+
+    def perimeter(self):
+        return self.a + self.b + self.c
+
+class EquilateralTriangle(Triangle):
+    def __init__(self, a):
+        super().__init__(a, a, a)
+
+Задача11
+
+Задача12
+class A:
+    def __str__(self):
+        return "A.str"
+
+    def hello(self):
+        print("Hello")
+
+class B:
+    def __str__(self):
+        return "B.str"
+
+    def good_evening(self):
+        print("Good evening")
+
+class C(A, B):
+    pass
+
+class D(A, B):
+    pass
+
+c = C()
+print(c)  # A.str
+c.hello()  # Hello
+
+d = D()
+print(d)  # B.str
+d.good_evening()  # Good evening
+
+Задача13
+class Weapon:
+    def __init__(self, name, damage, range):
+        self.name = name
+        self.damage = damage
+        self.range = range
+
+    def hit(self, actor, target):
+        if not target.is_alive():
+            print("Враг уже повержен")
+            return
+
+        distance = ((actor.get_coords()[0] - target.get_coords()[0]) ** 2 +
+                    (actor.get_coords()[1] - target.get_coords()[1]) ** 2) ** 0.5
+        if distance > self.range:
+            print(f"Враг слишком далеко для оружия {self.name}")
+            return
+
+        target.get_damage(self.damage)
+        print(f"Врагу нанесен урон оружием {self.name} в размере {self.damage}")
+
+    def __str__(self):
+        return self.name
+
+class BaseCharacter:
+    def __init__(self, pos_x, pos_y, hp):
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.hp = hp
+
+    def move(self, delta_x, delta_y):
+        self.pos_x += delta_x
+        self.pos_y += delta_y
+
+    def is_alive(self):
+        return self.hp > 0
+
+    def get_damage(self, amount):
+        self.hp -= amount
+
+    def get_coords(self):
+        return self.pos_x, self.pos_y
+
+class BaseEnemy(BaseCharacter):
+    def __init__(self, pos_x, pos_y, weapon, hp):
+        super().__init__(pos_x, pos_y, hp)
+        self.weapon = weapon
+
+    def hit(self, target):
+        if not isinstance(target, MainHero):
+            print("Могу ударить только Главного героя")
+            return
+
+        self.weapon.hit(self, target)
+
+    def __str__(self):
+        return f"Враг на позиции {self.get_coords()} с оружием {self.weapon}"
+
+class MainHero(BaseCharacter):
+    def __init__(self, pos_x, pos_y, name, hp):
+        super().__init__(pos_x, pos_y, hp)
+        self.name = name
+        self.weapons = []
+        self.current_weapon = None
+
+    def hit(self, target):
+        if not self.current_weapon:
+            print("Я безоружен")
+            return
+
+        if not isinstance(target, BaseEnemy):
+            print("Могу ударить только Врага")
+            return
+
+        self.current_weapon.hit(self, target)
+
+    def add_weapon(self, weapon):
+        if not isinstance(weapon, Weapon):
+            print("Это не оружие")
+            return
+
+        self.weapons.append(weapon)
+        if len(self.weapons) == 1:
+            self.current_weapon = weapon
+            print(f"Подобрал {weapon}")
+
+    def next_weapon(self):
+        if not self.weapons:
+            print("Я безоружен")
+            return
+
+        if len(self.weapons) == 1:
+            print("У меня только одно оружие")
+            return
+
+        self.current_weapon = self.weapons[(self.weapons.index(self.current_weapon) + 1) % len(self.weapons)]
+        print(f"Сменил оружие на {self.current_weapon}")
+
+    def heal(self, amount):
+        self.hp = min(self.hp + amount, 200)
+        print(f"Полечился, теперь здоровья {self.hp}")
+# Ваш код
+
+weapon1 = Weapon("Короткий меч", 5, 1)
+weapon2 = Weapon("Длинный меч", 7, 2)
+weapon3 = Weapon("Лук", 3, 10)
+weapon4 = Weapon("Лазерная орбитальная пушка", 1000, 1000)
+princess = BaseCharacter(100, 100, 100)
+archer = BaseEnemy(50, 50, weapon3, 100)
+armored_swordsman = BaseEnemy(10, 10, weapon2, 500)
+archer.hit(armored_swordsman)
+armored_swordsman.move(10, 10)
+print(armored_swordsman.get_coords())
+main_hero = MainHero(0, 0, "Король Артур", 200)
+main_hero.hit(armored_swordsman)
+main_hero.next_weapon()
+main_hero.add_weapon(weapon1)
+main_hero.hit(armored_swordsman)
+main_hero.add_weapon(weapon4)
+main_hero.hit(armored_swordsman)
+main_hero.next_weapon()
+main_hero.hit(princess)
+main_hero.hit(armored_swordsman)
+main_hero.hit(armored_swordsman)
