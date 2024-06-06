@@ -1,119 +1,135 @@
 Абстрактная фабрика
-    abstract class Fuel
+
+abstract class Fuel
+{
+    public abstract void Fill();
+}
+
+abstract class Movement
+{
+    public abstract void Move();
+}
+
+class NuclearFuel : Fuel
+{
+    public override void Fill()
     {
-        public abstract void ToFill();
+        Console.WriteLine("Заправляем дизелем!");
     }
-    abstract class Movement
+}
+
+class Gasoline : Fuel
+{
+    public override void Fill()
     {
-        public abstract void Move();
+        Console.WriteLine("Заправляем топливом!");
     }
-    class NuclearFuel : Fuel
+}
+
+class Electric : Fuel
+{
+    public override void Fill()
     {
-        public override void ToFill()
-        {
-            Console.WriteLine("Заправляем ядерным топливом!");
-        }
+        Console.WriteLine("Ставим на зарядку!");
     }
-    class Gasoline : Fuel
+}
+
+class FlyMovement : Movement
+{
+    public override void Move()
     {
-        public override void ToFill()
-        {
-            Console.WriteLine("Заправляем бензином!");
-        }
+        Console.WriteLine("Летим");
     }
-    class Electric : Fuel
+}
+
+class DriveMovement : Movement
+{
+    public override void Move()
     {
-        public override void ToFill()
-        {
-            Console.WriteLine("Поставили на зарядку!");
-        }
+        Console.WriteLine("Едем");
     }
-    class FlyMovement : Movement
+}
+
+abstract class CarFactory
+{
+    public abstract Movement CreateMovement();
+    public abstract Fuel CreateFuel();
+}
+
+class NuclearFuelCarFactory : CarFactory
+{
+    public override Movement CreateMovement()
     {
-        public override void Move()
-        {
-            Console.WriteLine("Летим");
-        }
+        return new DriveMovement();
     }
-    class DriveMovement : Movement
+
+    public override Fuel CreateFuel()
     {
-        public override void Move()
-        {
-            Console.WriteLine("Едем");
-        }
+        return new NuclearFuel();
     }
-    class NuclearFuelCarFactory : CarFactory
+}
+
+class GasolineCarFactory : CarFactory
+{
+    public override Movement CreateMovement()
     {
-        public override Movement CreateVehicle()
-        {
-            return new DriveMovement();
-        }
- 
-        public override Fuel FuelVehicle()
-        {
-            return new NuclearFuel();
-        }
+        return new DriveMovement();
     }
-    class GasolineCarFactory : CarFactory
+
+    public override Fuel CreateFuel()
     {
-        public override Movement CreateVehicle()
-        {
-            return new DriveMovement();
-        }
- 
-        public override Fuel FuelVehicle()
-        {
-            return new Gasoline();
-        }
+        return new Gasoline();
     }
-    class ElectricCarFactory : CarFactory
+}
+
+class ElectricCarFactory : CarFactory
+{
+    public override Movement CreateMovement()
     {
-        public override Movement CreateVehicle()
-        {
-            return new FlyMovement();
-        }
- 
-        public override Fuel FuelVehicle()
-        {
-            return new Electric();
-        }
+        return new FlyMovement();
     }
-    abstract class CarFactory
+
+    public override Fuel CreateFuel()
     {
-        public abstract Movement CreateVehicle();
-        public abstract Fuel FuelVehicle();
+        return new Electric();
     }
-    class Car
+}
+
+class Car
+{
+    private Fuel fuel;
+    private Movement movement;
+
+    public Car(CarFactory factory)
     {
-        private Fuel fuel;
-        private Movement car;
-        public Car(CarFactory factory)
-        {
-            car = factory.CreateVehicle();
-            fuel = factory.FuelVehicle();
-        }
-        public void Drive()
-        {
-            car.Move();
-        }
-        public void Fuel()
-        {
-            fuel.ToFill();
-        }
+        movement = factory.CreateMovement();
+        fuel = factory.CreateFuel();
     }
-    class Program
+
+    public void Drive()
     {
-        static void Main()
-        {
-            Car electricCar = new Car(new ElectricCarFactory());
-            electricCar.Drive();
-            electricCar.Fuel();
- 
-            Car gasolineCar = new Car(new GasolineCarFactory());
-            gasolineCar.Drive();
-            gasolineCar.Fuel();
-        }
+        movement.Move();
     }
+
+    public void Fill()
+    {
+        fuel.Fill();
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Car electricCar = new Car(new ElectricCarFactory());
+        electricCar.Drive();
+        electricCar.Fill();
+
+        Car gasolineCar = new Car(new GasolineCarFactory());
+        gasolineCar.Drive();
+        gasolineCar.Fill();
+    }
+}
     
 electric_factory = ElectricCarFactory()
 petrol_factory = PetrolCarFactory()
@@ -127,58 +143,28 @@ electric_car.drive()
 petrol_car.drive()
 hybrid_car.drive()
 паттерн Прототип
+
 import copy
 
-class Заказ:
-    def __init__(self, номер, товары, сумма):
-        self.номер = номер
-        self.товары = товары
-        self.сумма = сумма
+class Order:
+    def __init__(self, number, items, total):
+        self.number = number
+        self.items = items
+        self.total = total
 
-    def клонировать(self):
+    def clone(self):
         return copy.deepcopy(self)
 
-прототип_заказа = Заказ("1", ["товар1", "товар2"], 100)
+prototype_order = Order("1", ["item1", "item2"], 100)
 
-новый_заказ = прототип_заказа.клонировать()
-новый_заказ.номер = "2"
-новый_заказ.товары = ["товар3", "товар4"]
-новый_заказ.сумма = 150
-паттерн Адаптер
-class DataSource:
-    def read_data(self):
-        pass
+new_order = prototype_order.clone()
+new_order.number = "2"
+new_order.items = ["item3", "item4"]
+new_order.total = 150
 
-class FileDataSource(DataSource):
-    def __init__(self, file_path):
-        self.file_path = file_path
+print(prototype_order)
+print(new_order)
 
-    def read_data(self):
-        with open(self.file_path, 'r') as file:
-            return file.read()
-
-class DatabaseDataSource:
-    def __init__(self, connection_string):
-        self.connection_string = connection_string
-
-    def fetch_data(self):
-        return "Данные из базы данных"
-
-class DatabaseAdapter(DataSource):
-    def __init__(self, database_data_source):
-        self.database_data_source = database_data_source
-
-    def read_data(self):
-        return self.database_data_source.fetch_data()
-
-file_data_source = FileDataSource("example.txt")
-file_data = file_data_source.read_data()
-print(file_data)
-
-database_data_source = DatabaseDataSource("connection_string")
-adapter = DatabaseAdapter(database_data_source)
-database_data = adapter.read_data()
-print(database_data)
 паттерн Мост
 class Device:
     def turn_on(self):
